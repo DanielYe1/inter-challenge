@@ -27,5 +27,21 @@ public class UserService {
         return exists;
     }
 
+    public boolean update(String id, User User) {
+        boolean exists = repository.existsById(id);
+        if (exists) {
+            User.setId(id);
+            repository.save(User);
+        }
+        return exists;
+    }
+
+    public Optional<User> findById(String id) {
+        return repository.findById(id);
+    }
+
+    public List<User> findAll() {
+        return repository.findAll();
+    }
 
 }
