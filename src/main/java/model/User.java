@@ -1,8 +1,11 @@
 package model;
 
+import org.springframework.data.annotation.Id;
+
 import java.util.List;
 
 public class User {
+    @Id
     private String id;
     private String nome;
     private String email;
