@@ -1,12 +1,12 @@
-package service;
+package com.example.inter.service;
 
-import model.User;
+import com.example.inter.model.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import repository.UserRepository;
+import com.example.inter.repository.UserRepository;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;

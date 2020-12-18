@@ -1,13 +1,13 @@
-package controller;
+package com.example.inter.controller;
 
-import model.CheckDigit;
-import model.User;
+import com.example.inter.controller.DTO.RequestDTO;
+import com.example.inter.model.CheckDigit;
+import com.example.inter.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import service.UserService;
+import com.example.inter.service.UserService;
 
 import java.util.Optional;
 
@@ -18,7 +18,7 @@ public class UserController {
     UserService service;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity listAll(){
+    public ResponseEntity listAll() {
         return new ResponseEntity(service.findAll(), HttpStatus.OK);
     }
 
@@ -48,8 +48,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/check", method = RequestMethod.POST)
-    public ResponseEntity calculateCheckDigit(String userId, Integer n, Integer k){
-        CheckDigit checkDigit = new CheckDigit(n,k);
+    public ResponseEntity calculateCheckDigit(@RequestBody RequestDTO digitValues) {
+        CheckDigit checkDigit = new CheckDigit(digitValues.n, digitValues.k);
         return new ResponseEntity(checkDigit.calculateCheckDigit(), HttpStatus.OK);
     }
 }

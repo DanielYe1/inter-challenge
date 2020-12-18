@@ -1,4 +1,4 @@
-package model;
+package com.example.inter.model;
 
 public class CheckDigit {
     private Integer value;

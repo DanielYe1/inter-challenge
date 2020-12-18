@@ -1,9 +1,9 @@
-package service;
+package com.example.inter.service;
 
-import model.User;
+import com.example.inter.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repository.UserRepository;
+import com.example.inter.repository.UserRepository;
 
 import java.util.List;
 import java.util.Optional;

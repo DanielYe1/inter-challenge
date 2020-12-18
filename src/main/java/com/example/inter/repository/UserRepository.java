@@ -1,6 +1,6 @@
-package repository;
+package com.example.inter.repository;
 
-import model.User;
+import com.example.inter.model.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
