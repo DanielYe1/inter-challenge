@@ -1,9 +1,9 @@
 package com.example.inter.controller.DTO;
 
 public class RequestDTO {
-    String userId;
-    Integer n;
-    Integer k;
+    private String userId;
+    private Integer n;
+    private Integer k;
 
     public String getUserId() {
         return userId;
