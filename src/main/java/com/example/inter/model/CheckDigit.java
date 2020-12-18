@@ -21,7 +21,8 @@ public class CheckDigit {
 
         sum = calculateMethod(sum, num);
 
-        return sum;
+        digit = sum;
+        return digit;
     }
 
     private Integer calculateMethod(Integer sum, Integer num) {
@@ -34,5 +35,17 @@ public class CheckDigit {
             num /= 10;
         }
         return sum;
+    }
+
+    public Integer getValue() {
+        return value;
+    }
+
+    public Integer getNumberTimes() {
+        return numberTimes;
+    }
+
+    public Integer getDigit() {
+        return digit;
     }
 }

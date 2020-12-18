@@ -1,5 +1,6 @@
 package com.example.inter.service;
 
+import com.example.inter.model.CheckDigit;
 import com.example.inter.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,4 +45,13 @@ public class UserService {
         return repository.findAll();
     }
 
+    public CheckDigit addCheckDigitToUser(String userId, Integer value, Integer numberTimes) {
+        CheckDigit checkDigit = new CheckDigit(value, numberTimes);
+        checkDigit.calculateCheckDigit();
+
+        Optional<User> user = findById(userId);
+        user.ifPresent(u -> u.addCheckDigitToUser(checkDigit));
+
+        return checkDigit;
+    }
 }

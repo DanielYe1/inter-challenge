@@ -2,14 +2,16 @@ package com.example.inter.model;
 
 import org.springframework.data.annotation.Id;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class User {
     @Id
     private String id;
     private String nome;
     private String email;
-    private List<Integer> digitosUnicos;
+    private List<CheckDigit> checkDigits;
 
     public String getId() {
         return id;
@@ -35,11 +37,14 @@ public class User {
         this.email = email;
     }
 
-    public List<Integer> getDigitosUnicos() {
-        return digitosUnicos;
+    public List<Integer> getCheckDigits() {
+        return new ArrayList(checkDigits);
     }
 
-    public void setDigitosUnicos(List<Integer> digitosUnicos) {
-        this.digitosUnicos = digitosUnicos;
+    public void addCheckDigitToUser(CheckDigit checkDigit) {
+        if(this.checkDigits == null){
+            this.checkDigits = new ArrayList<CheckDigit>();
+        }
+        this.checkDigits.add(checkDigit);
     }
 }

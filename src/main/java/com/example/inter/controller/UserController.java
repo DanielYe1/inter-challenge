@@ -49,7 +49,7 @@ public class UserController {
 
     @RequestMapping(value = "/check", method = RequestMethod.POST)
     public ResponseEntity calculateCheckDigit(@RequestBody RequestDTO digitValues) {
-        CheckDigit checkDigit = new CheckDigit(digitValues.getN(), digitValues.getK());
-        return new ResponseEntity(checkDigit.calculateCheckDigit(), HttpStatus.OK);
+        CheckDigit checkDigit = service.addCheckDigitToUser(digitValues.getUserId(), digitValues.getK(), digitValues.getN());
+        return new ResponseEntity(checkDigit, HttpStatus.OK);
     }
 }
