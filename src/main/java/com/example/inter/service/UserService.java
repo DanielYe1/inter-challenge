@@ -53,7 +53,10 @@ public class UserService {
         CheckDigit checkDigit = new CheckDigit(value, numberTimes, sumDigit);
 
         Optional<User> user = findById(userId);
-        user.ifPresent(u -> u.addCheckDigitToUser(checkDigit));
+        user.ifPresent(u -> {
+            u.addCheckDigitToUser(checkDigit);
+            update(userId, u);
+        });
 
         return checkDigit;
     }
