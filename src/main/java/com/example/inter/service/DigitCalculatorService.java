@@ -2,13 +2,23 @@ package com.example.inter.service;
 
 import org.springframework.stereotype.Service;
 
+import static java.util.Arrays.asList;
+
 @Service
 public class DigitCalculatorService {
 
     private static final int MAX_INTEGER_THRESHOLD = 2147483600;
     private static final int INTEGER_ASCII_TABLE_THRESHOLD = 48;
+    private static final int CACHE_SIZE = 10;
+    DigitLRUCache cache = new DigitLRUCache(CACHE_SIZE);
 
     public Integer calculateSumDigit(String value, Integer numberTimes) {
+
+        Integer cacheValue = cache.get(asList(value, numberTimes));
+        if (cacheValue != -1) {
+            System.out.println("HIT CACHE");
+            return cacheValue;
+        }
 
         String num = value;
         Integer sum = 0;
@@ -16,6 +26,7 @@ public class DigitCalculatorService {
         sum = calculateStringValue(num);
         sum = calculateIntegerValue(sum * numberTimes);
 
+        cache.put(asList(value, numberTimes), sum);
         return sum;
     }
 
