@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.inter.service.UserService;
 
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/user")
@@ -49,7 +49,7 @@ public class UserController {
 
     @RequestMapping(value = "/check", method = RequestMethod.POST)
     public ResponseEntity calculateCheckDigit(@RequestBody RequestDTO digitValues) {
-        CheckDigit checkDigit = service.addCheckDigitToUser(digitValues.getUserId(), digitValues.getK(), digitValues.getN());
+        CheckDigit checkDigit = service.addCheckDigitToUser(digitValues.getUserId(), digitValues.getN(), digitValues.getK());
         return new ResponseEntity(checkDigit, HttpStatus.OK);
     }
 }

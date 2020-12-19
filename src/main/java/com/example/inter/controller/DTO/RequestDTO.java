@@ -2,7 +2,7 @@ package com.example.inter.controller.DTO;
 
 public class RequestDTO {
     private String userId;
-    private Integer n;
+    private String n;
     private Integer k;
 
     public String getUserId() {
@@ -13,11 +13,11 @@ public class RequestDTO {
         this.userId = userId;
     }
 
-    public Integer getN() {
+    public String getN() {
         return n;
     }
 
-    public void setN(Integer n) {
+    public void setN(String n) {
         this.n = n;
     }
 

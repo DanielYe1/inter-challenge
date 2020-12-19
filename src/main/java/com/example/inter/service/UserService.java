@@ -45,7 +45,7 @@ public class UserService {
         return repository.findAll();
     }
 
-    public CheckDigit addCheckDigitToUser(String userId, Integer value, Integer numberTimes) {
+    public CheckDigit addCheckDigitToUser(String userId, String value, Integer numberTimes) {
         CheckDigit checkDigit = new CheckDigit(value, numberTimes);
         checkDigit.calculateCheckDigit();
 
