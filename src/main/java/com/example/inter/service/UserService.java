@@ -15,6 +15,9 @@ public class UserService {
     @Autowired
     UserRepository repository;
 
+    @Autowired
+    DigitCalculatorService digitCalculatorService;
+
     public User add(User User) {
         User inserted = repository.insert(User);
         return inserted;
@@ -46,8 +49,8 @@ public class UserService {
     }
 
     public CheckDigit addCheckDigitToUser(String userId, String value, Integer numberTimes) {
-        CheckDigit checkDigit = new CheckDigit(value, numberTimes);
-        checkDigit.calculateCheckDigit();
+        Integer sumDigit = digitCalculatorService.calculateSumDigit(value, numberTimes);
+        CheckDigit checkDigit = new CheckDigit(value, numberTimes, sumDigit);
 
         Optional<User> user = findById(userId);
         user.ifPresent(u -> u.addCheckDigitToUser(checkDigit));
