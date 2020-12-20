@@ -20,8 +20,6 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @Autowired
-    SecurityService securityService;
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity listAll() {
@@ -29,7 +27,7 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity saveUser(@RequestBody UserDTO user) {
+    public ResponseEntity saveUser(@RequestBody UserDTO user, @RequestHeader("public-key") String publicKey) {
         User added = userService.add(user);
         return new ResponseEntity(HttpStatus.CREATED);
     }
@@ -54,18 +52,20 @@ public class UserController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity deleteUser(@PathVariable("id") String id){
+    public ResponseEntity deleteUser(@PathVariable("id") String id) {
         userService.delete(id);
         return new ResponseEntity((HttpStatus.NO_CONTENT));
     }
+
     @RequestMapping(value = "/check", method = RequestMethod.POST)
     public ResponseEntity calculateCheckDigit(@RequestBody RequestDTO digitValues) {
         CheckDigit checkDigit = userService.addCheckDigitToUser(digitValues.getUserId(), digitValues.getN(), digitValues.getK());
         return new ResponseEntity(checkDigit, HttpStatus.OK);
     }
 
+    /*
     @RequestMapping(value = "/key")
     public ResponseEntity addUserKey(@RequestBody UserKey userKey) {
         return new ResponseEntity(securityService.addPublicKeyToUser(userKey), HttpStatus.OK);
-    }
+    }*/
 }

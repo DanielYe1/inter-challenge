@@ -9,6 +9,8 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import com.example.inter.repository.UserRepository;
 
+import java.util.Optional;
+
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
@@ -64,13 +66,11 @@ public class UserServiceTest {
         UserDTO userDTO = mock(UserDTO.class);
         User applicationUser = mock(User.class);
 
-        when(userDTO.toApplicationUser()).thenReturn(applicationUser);
-
-        when(repository.existsById(id)).thenReturn(true);
+        when(repository.findById(id)).thenReturn(Optional.of(applicationUser));
         when(repository.save(applicationUser)).thenReturn(applicationUser);
 
         assertThat(service.update(id, userDTO), equalTo(true));
-        verify(repository, times(1)).existsById(id);
+        verify(repository, times(1)).findById(id);
         verify(repository, times(1)).save(applicationUser);
     }
 
@@ -79,7 +79,6 @@ public class UserServiceTest {
         UserDTO userDTO = mock(UserDTO.class);
         User applicationUser = mock(User.class);
         String id = "1234";
-        when(userDTO.toApplicationUser()).thenReturn(applicationUser);
 
         assertThat(service.update(id, userDTO), equalTo(false));
         verify(repository, times(0)).save(applicationUser);

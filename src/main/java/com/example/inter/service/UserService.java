@@ -20,6 +20,9 @@ public class UserService {
     @Autowired
     DigitCalculatorService digitCalculatorService;
 
+    @Autowired
+    SecurityService securityService;
+
     public User add(UserDTO User) {
         User inserted = repository.insert(User.toApplicationUser());
         return inserted;
@@ -39,7 +42,7 @@ public class UserService {
             u.setName(user.getName());
             u.setEmail(user.getEmail());
             return u;
-        }).ifPresent(c-> {
+        }).ifPresent(c -> {
             repository.save(c);
             updated.set(true);
         });
