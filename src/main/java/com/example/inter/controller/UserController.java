@@ -1,9 +1,11 @@
 package com.example.inter.controller;
 
 import com.example.inter.controller.DTO.RequestDTO;
+import com.example.inter.controller.DTO.UserDTO;
 import com.example.inter.model.CheckDigit;
 import com.example.inter.model.User;
 import com.example.inter.model.UserKey;
+import com.example.inter.service.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,46 +18,54 @@ import java.util.*;
 @RequestMapping("/user")
 public class UserController {
     @Autowired
-    UserService service;
+    UserService userService;
+
+    @Autowired
+    SecurityService securityService;
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity listAll() {
-        return new ResponseEntity(service.findAll(), HttpStatus.OK);
+        return new ResponseEntity(userService.findAll(), HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity saveUser(@RequestBody User user) {
-        User added = service.add(user);
+    public ResponseEntity saveUser(@RequestBody UserDTO user) {
+        User added = userService.add(user);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity searchUser(@PathVariable("id") String UserId) {
-        Optional<User> User = service.findById(UserId);
-        if (User.isPresent()) {
-            return new ResponseEntity<User>(User.get(), HttpStatus.OK);
+    public ResponseEntity searchUser(@PathVariable("id") String userId) {
+        Optional<User> user = userService.findById(userId);
+        if (user.isPresent()) {
+            return new ResponseEntity<User>(user.get(), HttpStatus.OK);
         } else {
             return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
         }
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity updateUser(@PathVariable("id") String id, @RequestBody User User) {
-        if (service.update(id, User)) {
+    public ResponseEntity updateUser(@PathVariable("id") String id, @RequestBody UserDTO user) {
+        if (userService.update(id, user)) {
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity deleteUser(@PathVariable("id") String id){
+        userService.delete(id);
+        return new ResponseEntity((HttpStatus.NO_CONTENT));
+    }
     @RequestMapping(value = "/check", method = RequestMethod.POST)
     public ResponseEntity calculateCheckDigit(@RequestBody RequestDTO digitValues) {
-        CheckDigit checkDigit = service.addCheckDigitToUser(digitValues.getUserId(), digitValues.getN(), digitValues.getK());
+        CheckDigit checkDigit = userService.addCheckDigitToUser(digitValues.getUserId(), digitValues.getN(), digitValues.getK());
         return new ResponseEntity(checkDigit, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/key")
     public ResponseEntity addUserKey(@RequestBody UserKey userKey) {
-        return new ResponseEntity(service.addPublicKeyToUser(userKey), HttpStatus.OK);
+        return new ResponseEntity(securityService.addPublicKeyToUser(userKey), HttpStatus.OK);
     }
 }

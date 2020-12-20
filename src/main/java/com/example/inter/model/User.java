@@ -9,9 +9,18 @@ import java.util.Optional;
 public class User {
     @Id
     private String id;
-    private String nome;
+    private String name;
     private String email;
     private List<CheckDigit> checkDigits;
+
+    public User() {
+    }
+
+    public User(String name, String email) {
+        this.name = name;
+        this.email = email;
+        this.checkDigits = new ArrayList<CheckDigit>();
+    }
 
     public String getId() {
         return id;
@@ -21,12 +30,12 @@ public class User {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -37,12 +46,14 @@ public class User {
         this.email = email;
     }
 
-    public List<Integer> getCheckDigits() {
-        return new ArrayList(checkDigits);
+    public List<CheckDigit> getCheckDigits() {
+        return Optional.ofNullable(checkDigits)
+                .map(c -> new ArrayList(c))
+                .orElse(new ArrayList<CheckDigit>());
     }
 
     public void addCheckDigitToUser(CheckDigit checkDigit) {
-        if(this.checkDigits == null){
+        if (this.checkDigits == null) {
             this.checkDigits = new ArrayList<CheckDigit>();
         }
         this.checkDigits.add(checkDigit);

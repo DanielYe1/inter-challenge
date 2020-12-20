@@ -1,5 +1,6 @@
 package com.example.inter.service;
 
+import com.example.inter.controller.DTO.UserDTO;
 import com.example.inter.model.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,15 +23,18 @@ public class UserServiceTest {
     UserRepository repository;
 
     @Test
-    public void deveriaInserirUsuarioOk(){
-        User user = mock(User.class);
-        service.add(user);
+    public void deveriaInserirUsuarioOk() {
+        UserDTO userDTO = mock(UserDTO.class);
+        User applicationUser = mock(User.class);
 
-        verify(repository, times(1)).insert(user);
+        when(userDTO.toApplicationUser()).thenReturn(applicationUser);
+        service.add(userDTO);
+
+        verify(repository, times(1)).insert(applicationUser);
     }
 
     @Test
-    public void deveriaDeletarUsuarioOk(){
+    public void deveriaDeletarUsuarioOk() {
         User user = mock(User.class);
         String id = "1234";
 
@@ -42,7 +46,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void deveriaDeletarUsuarioFalha(){
+    public void deveriaDeletarUsuarioFalha() {
         User user = mock(User.class);
         String id = "1234";
 
@@ -55,24 +59,29 @@ public class UserServiceTest {
     }
 
     @Test
-    public void deveriaAtualizarUsuarioOk(){
-        User user = mock(User.class);
+    public void deveriaAtualizarUsuarioOk() {
         String id = "1234";
+        UserDTO userDTO = mock(UserDTO.class);
+        User applicationUser = mock(User.class);
+
+        when(userDTO.toApplicationUser()).thenReturn(applicationUser);
 
         when(repository.existsById(id)).thenReturn(true);
-        when(repository.save(user)).thenReturn(user);
+        when(repository.save(applicationUser)).thenReturn(applicationUser);
 
-        assertThat(service.update(id, user), equalTo(true));
+        assertThat(service.update(id, userDTO), equalTo(true));
         verify(repository, times(1)).existsById(id);
-        verify(repository, times(1)).save(user);
+        verify(repository, times(1)).save(applicationUser);
     }
 
     @Test
-    public void deveriaAtualizarUsuarioFalha(){
-        User user = mock(User.class);
+    public void deveriaAtualizarUsuarioFalha() {
+        UserDTO userDTO = mock(UserDTO.class);
+        User applicationUser = mock(User.class);
         String id = "1234";
+        when(userDTO.toApplicationUser()).thenReturn(applicationUser);
 
-        assertThat(service.update(id, user), equalTo(false));
-        verify(repository, times(0)).save(user);
+        assertThat(service.update(id, userDTO), equalTo(false));
+        verify(repository, times(0)).save(applicationUser);
     }
 }

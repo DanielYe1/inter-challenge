@@ -1,15 +1,15 @@
 package com.example.inter.service;
 
+import com.example.inter.controller.DTO.UserDTO;
 import com.example.inter.model.CheckDigit;
 import com.example.inter.model.User;
-import com.example.inter.model.UserKey;
-import com.example.inter.repository.PublicKeyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.inter.repository.UserRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Service
 public class UserService {
@@ -18,13 +18,10 @@ public class UserService {
     UserRepository repository;
 
     @Autowired
-    PublicKeyRepository publicKeyRepository;
-
-    @Autowired
     DigitCalculatorService digitCalculatorService;
 
-    public User add(User User) {
-        User inserted = repository.insert(User);
+    public User add(UserDTO User) {
+        User inserted = repository.insert(User.toApplicationUser());
         return inserted;
     }
 
@@ -36,13 +33,18 @@ public class UserService {
         return exists;
     }
 
-    public boolean update(String id, User User) {
-        boolean exists = repository.existsById(id);
-        if (exists) {
-            User.setId(id);
-            repository.save(User);
-        }
-        return exists;
+    public boolean update(String id, UserDTO user) {
+        AtomicBoolean updated = new AtomicBoolean(false);
+        repository.findById(id).map(u -> {
+            u.setName(user.getName());
+            u.setEmail(user.getEmail());
+            return u;
+        }).ifPresent(c-> {
+            repository.save(c);
+            updated.set(true);
+        });
+
+        return updated.get();
     }
 
     public Optional<User> findById(String id) {
@@ -60,13 +62,10 @@ public class UserService {
         Optional<User> user = findById(userId);
         user.ifPresent(u -> {
             u.addCheckDigitToUser(checkDigit);
-            update(userId, u);
+            repository.save(u);
         });
 
         return checkDigit;
     }
 
-    public UserKey addPublicKeyToUser(UserKey userKey) {
-        return publicKeyRepository.save(userKey);
-    }
 }
