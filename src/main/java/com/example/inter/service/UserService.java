@@ -2,6 +2,8 @@ package com.example.inter.service;
 
 import com.example.inter.model.CheckDigit;
 import com.example.inter.model.User;
+import com.example.inter.model.UserKey;
+import com.example.inter.repository.PublicKeyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.inter.repository.UserRepository;
@@ -14,6 +16,9 @@ public class UserService {
 
     @Autowired
     UserRepository repository;
+
+    @Autowired
+    PublicKeyRepository publicKeyRepository;
 
     @Autowired
     DigitCalculatorService digitCalculatorService;
@@ -59,5 +64,9 @@ public class UserService {
         });
 
         return checkDigit;
+    }
+
+    public UserKey addPublicKeyToUser(UserKey userKey) {
+        return publicKeyRepository.save(userKey);
     }
 }

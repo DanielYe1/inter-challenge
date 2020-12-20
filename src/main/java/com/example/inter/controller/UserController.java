@@ -3,6 +3,7 @@ package com.example.inter.controller;
 import com.example.inter.controller.DTO.RequestDTO;
 import com.example.inter.model.CheckDigit;
 import com.example.inter.model.User;
+import com.example.inter.model.UserKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,5 +52,10 @@ public class UserController {
     public ResponseEntity calculateCheckDigit(@RequestBody RequestDTO digitValues) {
         CheckDigit checkDigit = service.addCheckDigitToUser(digitValues.getUserId(), digitValues.getN(), digitValues.getK());
         return new ResponseEntity(checkDigit, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/key")
+    public ResponseEntity addUserKey(@RequestBody UserKey userKey) {
+        return new ResponseEntity(service.addPublicKeyToUser(userKey), HttpStatus.OK);
     }
 }
