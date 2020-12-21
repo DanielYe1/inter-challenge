@@ -1,0 +1,201 @@
+swagger: "2.0"
+info:
+  description: "Aplicação base de usuários e cálculo de soma de digitos"
+  version: "1.0.0"
+  title: "Aplicação inter"
+basePath: "/"
+tags:
+  - name: "user"
+    description: ""
+    externalDocs:
+      description: "Find out more"
+      url: "http://swagger.io"
+schemes:
+  - "https"
+  - "http"
+paths:
+  /user:
+    post:
+      tags:
+        - "user"
+      summary: "Adiciona um novo usuario"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Adiciona um novo usuario a base"
+          required: true
+          schema:
+            $ref: "#/definitions/RequestUser"
+      responses:
+        "201":
+          description: "Created"
+          schema:
+            $ref: "#/definitions/ResponseUser"
+    get:
+      tags:
+        - "user"
+      summary: "Busca todos os usuários"
+      description: "Retorna uma lista com todos os usuários encontrados na base"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ResponseUser"
+
+  /user/{userId}:
+    get:
+      tags:
+        - "user"
+      summary: "Busca usuário por ID"
+      description: "Retorna o usuário com o id dado"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "userId"
+          in: "path"
+          description: "Id do usuário"
+          required: true
+          type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ResponseUser"
+        "404":
+          description: "usuário não encontrado"
+    put:
+      tags:
+        - "user"
+      summary: "Atualiza dados básicos do usuário"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "userId"
+          in: "path"
+          description: "Id do usuário"
+          required: true
+          type: "string"
+        - in: "body"
+          name: "body"
+          description: "dados a serem atualizados referentes ao objeto, é necessário que todos os dados sejam informados."
+          required: true
+          schema:
+            $ref: "#/definitions/RequestUser"
+      responses:
+        "204":
+          description: "atualização com sucesso"
+        "404":
+          description: "usuário não encontrado"
+    delete:
+      tags:
+        - "user"
+      summary: "Deleta um usuário"
+      description: ""
+      produces:
+        - "application/json"
+      parameters:
+        - name: "userId"
+          in: "path"
+          description: "Id do usuário"
+          required: true
+          type: "string"
+      responses:
+        "204":
+          description: "usuário deletado"
+  /user/check:
+    post:
+      tags:
+        - "user"
+      summary: "Calcula novo valor e adiciona a usuário caso exista"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "'n' é o valor do número a ser calculado e 'k' a quantidade de vezes que a string 'n' se repete"
+          required: true
+          schema:
+            $ref: "#/definitions/RequestCheckDigit"
+      responses:
+        "200":
+          description: "Created"
+          schema:
+            $ref: "#/definitions/ResponseCheckDigit"
+  /user/key:
+    post:
+      tags:
+        - "user"
+      summary: "Salva chave publica do usuário"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "'n' é o valor do número a ser calculado e 'k' a quantidade de vezes que a string 'n' se repete"
+          required: true
+          schema:
+            $ref: "#/definitions/UserKey"
+      responses:
+        "201":
+          description: "Created"
+
+definitions:
+  RequestUser:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      email:
+        type: "string"
+  ResponseUser:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      name:
+        type: "string"
+      email:
+        type: "string"
+      checkDigits:
+        type: "array"
+        items:
+          $ref: "#/definitions/ResponseCheckDigit"
+  UserKey:
+    type: "object"
+    properties:
+      userId:
+        type: "string"
+      publicKeyString:
+        type: "string"
+  ResponseCheckDigit:
+    type: "object"
+    properties:
+      value:
+        type: "string"
+      numberTimes:
+        type: "integer"
+      digit:
+        type: "integer"
+  RequestCheckDigit:
+    type: "object"
+    properties:
+      userId:
+        type: "string"
+      n:
+        type: "string"
+      k:
+        type: "integer"
