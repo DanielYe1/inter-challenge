@@ -1,6 +1,6 @@
-## Back-end trabalho de projeto de software
+## Aplicação de usuários e cálculo de digito único
 
-Aplicação back-end de um sistema de usuários e cálculo de digitos únicos.
+Aplicação back-end de um sistema CRUD de usuários e lógica de cálculo de digitos únicos.
 
 ## Como compilar o código
 
