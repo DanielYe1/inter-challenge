@@ -3,15 +3,11 @@ package com.example.inter.service;
 import com.example.inter.controller.DTO.UserDTO;
 import com.example.inter.model.CheckDigit;
 import com.example.inter.model.User;
+import com.example.inter.model.UserKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.inter.repository.UserRepository;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -28,10 +24,8 @@ public class UserService {
     @Autowired
     private SecurityService securityService;
 
-    public User add(UserDTO user, String publicKey) throws IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException {
-        User applicationUser = new User(securityService.encrypt(user.getName(), publicKey),
-                securityService.encrypt(user.getEmail(), publicKey));
-        User inserted = repository.insert(applicationUser);
+    public User add(UserDTO user) {
+        User inserted = repository.insert(user.toApplicationUser());
         return inserted;
     }
 
@@ -43,15 +37,11 @@ public class UserService {
         return exists;
     }
 
-    public boolean update(String id, UserDTO user, String publicKey) {
+    public boolean update(String id, UserDTO user) {
         AtomicBoolean updated = new AtomicBoolean(false);
         repository.findById(id).map(u -> {
-            try {
-                u.setName(securityService.encrypt(user.getName(), publicKey));
-                u.setEmail(securityService.encrypt(user.getEmail(), publicKey));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+                u.setName(user.getName());
+                u.setEmail(user.getEmail());
             return u;
         }).ifPresent(c -> {
             repository.save(c);
@@ -80,6 +70,10 @@ public class UserService {
         });
 
         return checkDigit;
+    }
+
+    public UserKey saveUserKey(UserKey userKey) {
+        return securityService.addPublicKeyToUser(userKey);
     }
 
 }

@@ -1,6 +1,5 @@
 package com.example.inter.service;
 
-import com.example.inter.model.CheckDigit;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

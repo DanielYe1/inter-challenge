@@ -1,6 +1,7 @@
 package com.example.inter.service;
 
 import com.example.inter.model.UserKey;
+import com.example.inter.repository.PublicKeyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,12 @@ import static org.apache.tomcat.util.codec.binary.Base64.decodeBase64;
 
 @Service
 public class SecurityService {
+    @Autowired
+    PublicKeyRepository publicKeyRepository;
+
+    public UserKey addPublicKeyToUser(UserKey userKey) {
+        return publicKeyRepository.save(userKey);
+    }
 
     public String encrypt(String content, String stringKey) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
         PublicKey pubKey = parseStringToPublicKey(stringKey);
