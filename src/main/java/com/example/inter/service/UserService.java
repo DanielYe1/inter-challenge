@@ -7,6 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.inter.repository.UserRepository;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -23,8 +28,10 @@ public class UserService {
     @Autowired
     private SecurityService securityService;
 
-    public User add(UserDTO User) {
-        User inserted = repository.insert(User.toApplicationUser());
+    public User add(UserDTO user, String publicKey) throws IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException {
+        User applicationUser = new User(securityService.encrypt(user.getName(), publicKey),
+                securityService.encrypt(user.getEmail(), publicKey));
+        User inserted = repository.insert(applicationUser);
         return inserted;
     }
 
@@ -36,11 +43,15 @@ public class UserService {
         return exists;
     }
 
-    public boolean update(String id, UserDTO user) {
+    public boolean update(String id, UserDTO user, String publicKey) {
         AtomicBoolean updated = new AtomicBoolean(false);
         repository.findById(id).map(u -> {
-            u.setName(user.getName());
-            u.setEmail(user.getEmail());
+            try {
+                u.setName(securityService.encrypt(user.getName(), publicKey));
+                u.setEmail(securityService.encrypt(user.getEmail(), publicKey));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             return u;
         }).ifPresent(c -> {
             repository.save(c);

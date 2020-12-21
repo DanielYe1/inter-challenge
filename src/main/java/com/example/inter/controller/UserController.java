@@ -10,6 +10,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.inter.service.UserService;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 @RestController
@@ -25,7 +30,11 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity saveUser(@RequestBody UserDTO user, @RequestHeader("public-key") String publicKey) {
-        User added = userService.add(user);
+        try {
+            User added = userService.add(user, publicKey);
+        } catch (IllegalBlockSizeException | InvalidKeyException | BadPaddingException | NoSuchAlgorithmException | NoSuchPaddingException e) {
+            return new ResponseEntity(HttpStatus.UNPROCESSABLE_ENTITY);
+        }
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
@@ -40,8 +49,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity updateUser(@PathVariable("id") String id, @RequestBody UserDTO user) {
-        if (userService.update(id, user)) {
+    public ResponseEntity updateUser(@PathVariable("id") String id, @RequestBody UserDTO user, @RequestHeader("public-key") String publicKey) {
+        if (userService.update(id, user, publicKey)) {
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity(HttpStatus.NOT_FOUND);

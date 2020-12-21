@@ -9,6 +9,11 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import com.example.inter.repository.UserRepository;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 
 import static org.hamcrest.Matchers.equalTo;
@@ -24,15 +29,18 @@ public class UserServiceTest {
     @Mock
     UserRepository repository;
 
+    @Mock
+    SecurityService securityService;
+
     @Test
-    public void deveriaInserirUsuarioOk() {
+    public void deveriaInserirUsuarioOk() throws InvalidKeyException, BadPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException, NoSuchPaddingException {
         UserDTO userDTO = mock(UserDTO.class);
         User applicationUser = mock(User.class);
+        String pubKey = "1234";
 
-        when(userDTO.toApplicationUser()).thenReturn(applicationUser);
-        service.add(userDTO);
+        service.add(userDTO, pubKey);
 
-        verify(repository, times(1)).insert(applicationUser);
+        verify(repository, times(1)).insert(any(User.class));
     }
 
     @Test
@@ -62,14 +70,15 @@ public class UserServiceTest {
 
     @Test
     public void deveriaAtualizarUsuarioOk() {
-        String id = "1234";
         UserDTO userDTO = mock(UserDTO.class);
         User applicationUser = mock(User.class);
+        String id = "1234";
+        String publicKey = "chave";
 
         when(repository.findById(id)).thenReturn(Optional.of(applicationUser));
         when(repository.save(applicationUser)).thenReturn(applicationUser);
 
-        assertThat(service.update(id, userDTO), equalTo(true));
+        assertThat(service.update(id, userDTO, publicKey), equalTo(true));
         verify(repository, times(1)).findById(id);
         verify(repository, times(1)).save(applicationUser);
     }
@@ -79,8 +88,9 @@ public class UserServiceTest {
         UserDTO userDTO = mock(UserDTO.class);
         User applicationUser = mock(User.class);
         String id = "1234";
+        String publicKey = "chave";
 
-        assertThat(service.update(id, userDTO), equalTo(false));
+        assertThat(service.update(id, userDTO, publicKey), equalTo(false));
         verify(repository, times(0)).save(applicationUser);
     }
 }
