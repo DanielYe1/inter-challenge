@@ -12,7 +12,36 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"userId\": \"1\",\n    \"n\": 2001111111110,\n    \"k\": 5\n}",
+					"raw": "{\n    \"userId\": \"1\",\n    \"n\": \"9999\",\n    \"k\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/user/check/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"check",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "retorna 422 soma de digitos valor inválido",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": \"1\",\n    \"n\": \"a1234ab\",\n    \"k\": 5\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -41,7 +70,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"userId\": \"1\",\n    \"n\": 2001111111110,\n    \"k\": 5\n}",
+					"raw": "{\n    \"userId\": \"5fe10d60600b4c64ae01771c\",\n    \"n\": \"2001111111110\",\n    \"k\": 5\n}",
 					"options": {
 						"raw": {
 							"language": "json"
