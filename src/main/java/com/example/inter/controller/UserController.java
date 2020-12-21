@@ -4,8 +4,6 @@ import com.example.inter.controller.DTO.RequestDTO;
 import com.example.inter.controller.DTO.UserDTO;
 import com.example.inter.model.CheckDigit;
 import com.example.inter.model.User;
-import com.example.inter.model.UserKey;
-import com.example.inter.service.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +16,7 @@ import java.util.*;
 @RequestMapping("/user")
 public class UserController {
     @Autowired
-    UserService userService;
-
+    private UserService userService;
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity listAll() {
@@ -62,10 +59,4 @@ public class UserController {
         CheckDigit checkDigit = userService.addCheckDigitToUser(digitValues.getUserId(), digitValues.getN(), digitValues.getK());
         return new ResponseEntity(checkDigit, HttpStatus.OK);
     }
-
-    /*
-    @RequestMapping(value = "/key")
-    public ResponseEntity addUserKey(@RequestBody UserKey userKey) {
-        return new ResponseEntity(securityService.addPublicKeyToUser(userKey), HttpStatus.OK);
-    }*/
 }

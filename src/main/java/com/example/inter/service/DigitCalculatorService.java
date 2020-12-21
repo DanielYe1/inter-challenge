@@ -10,27 +10,27 @@ public class DigitCalculatorService {
     private static final int MAX_INTEGER_THRESHOLD = 2147483600;
     private static final int INTEGER_ASCII_TABLE_THRESHOLD = 48;
     private static final int CACHE_SIZE = 10;
+
     DigitLRUCache cache = new DigitLRUCache(CACHE_SIZE);
 
     public Integer calculateSumDigit(String value, Integer numberTimes) {
 
         Integer cacheValue = cache.get(asList(value, numberTimes));
         if (cacheValue != -1) {
-            System.out.println("HIT CACHE");
             return cacheValue;
         }
 
         String num = value;
         Integer sum = 0;
 
-        sum = calculateStringValue(num);
-        sum = calculateIntegerValue(sum * numberTimes);
+        sum = calculateStringDigit(num);
+        sum = calculateIntegerDigit(sum * numberTimes);
 
         cache.put(asList(value, numberTimes), sum);
         return sum;
     }
 
-    private Integer calculateStringValue(String value) {
+    private Integer calculateStringDigit(String value) {
         String tempValue = value;
         int length = tempValue.length();
         StringBuilder builder = new StringBuilder();
@@ -54,7 +54,7 @@ public class DigitCalculatorService {
         return Integer.parseInt(tempValue);
     }
 
-    private Integer calculateIntegerValue(Integer num) {
+    private Integer calculateIntegerDigit(Integer num) {
         int sum = 0;
         while (num > 0 || sum > 9) {
             if (num == 0) {

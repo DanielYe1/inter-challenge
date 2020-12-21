@@ -15,13 +15,13 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class UserService {
 
     @Autowired
-    UserRepository repository;
+    private UserRepository repository;
 
     @Autowired
-    DigitCalculatorService digitCalculatorService;
+    private DigitCalculatorService digitCalculatorService;
 
     @Autowired
-    SecurityService securityService;
+    private SecurityService securityService;
 
     public User add(UserDTO User) {
         User inserted = repository.insert(User.toApplicationUser());
