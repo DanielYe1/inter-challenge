@@ -57,8 +57,12 @@ public class UserController {
 
     @RequestMapping(value = "/check", method = RequestMethod.POST)
     public ResponseEntity calculateCheckDigit(@RequestBody RequestDTO digitValues) {
-        CheckDigit checkDigit = userService.addCheckDigitToUser(digitValues.getUserId(), digitValues.getN(), digitValues.getK());
-        return new ResponseEntity<>(checkDigit, HttpStatus.OK);
+        try {
+            CheckDigit checkDigit = userService.addCheckDigitToUser(digitValues.getUserId(), digitValues.getN(), digitValues.getK());
+            return new ResponseEntity<>(checkDigit, HttpStatus.OK);
+        } catch (RuntimeException e){
+            return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
+        }
     }
 
     @RequestMapping(value = "/key")

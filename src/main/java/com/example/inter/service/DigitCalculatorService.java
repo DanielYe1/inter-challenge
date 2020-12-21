@@ -14,7 +14,6 @@ public class DigitCalculatorService {
     DigitLRUCache cache = new DigitLRUCache(CACHE_SIZE);
 
     public Integer calculateSumDigit(String value, Integer numberTimes) {
-
         Integer cacheValue = cache.get(asList(value, numberTimes));
         if (cacheValue != -1) {
             return cacheValue;
@@ -30,7 +29,17 @@ public class DigitCalculatorService {
         return sum;
     }
 
-    private Integer calculateStringDigit(String value) {
+
+    public Integer calculateStringDigit(String value) throws RuntimeException {
+        if (value.matches("[0-9]+")) {
+            return value.chars()
+                    .map(intChar -> (intChar - '0'))
+                    .sum();
+        }
+        throw new RuntimeException("Invalid value, it should have only numbers: " + value);
+    }
+
+    private Integer calculateStringDigitForSumHigherThanIntMax(String value) {
         String tempValue = value;
         int length = tempValue.length();
         StringBuilder builder = new StringBuilder();

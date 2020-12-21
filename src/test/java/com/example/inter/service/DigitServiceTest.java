@@ -26,5 +26,10 @@ public class DigitServiceTest {
         assertThat(digit, equalTo(9));
     }
 
+    @Test(expected = RuntimeException.class)
+    public void DeveriaEstourarErroPorReceberStringInvalida() {
+        Integer digit = service.calculateSumDigit("as1234", 9999);
+    }
+
 
 }
