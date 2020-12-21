@@ -1,0 +1,315 @@
+{
+	"info": {
+		"_postman_id": "0b133e7a-edda-46e0-8520-f6759dad8f83",
+		"name": "InterChallenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "verificar soma de digito sem salvar usuário",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": \"1\",\n    \"n\": 2001111111110,\n    \"k\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/user/check/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"check",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "soma de digito com usuário existente",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": \"1\",\n    \"n\": 2001111111110,\n    \"k\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/user/check/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"check",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "listar usuários",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "public-key",
+						"value": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAltmTQ6CG+N/WKWLeH+ytrMUSTtom5ZvTRKq/Z3bUevH4kc8I40R45l3gE5TibKfceIuRr0XxZHYq42FzAC2I2w1FHoveHPmaVVtxThAyAqDUrLYarwk+ouAv+hcBKs9nhl25hvQw2Ym4PJDl7YYlbhBUicsPLjR+RhwHvDlZ1MsBLOQH7ULq31Q/YR1e4uqBH7/Tf47SM0v8P7z/jIHgPdqweiokWrlie9a+0icoEBKRI4h5KzgiJTQpNxoqCKXbSo/IBm23rToi4aaWq1yq5EOIEyk8ZHc4h0U57YJN6z2eHNXPSKCJYmWDL1TZvoUycZXyLoomdFlw5nJUCM2njQIDAQAB",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"jogador\",\n    \"email\": \"testa@gmail\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/user/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "salvar usuário",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "public-key",
+						"value": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAltmTQ6CG+N/WKWLeH+ytrMUSTtom5ZvTRKq/Z3bUevH4kc8I40R45l3gE5TibKfceIuRr0XxZHYq42FzAC2I2w1FHoveHPmaVVtxThAyAqDUrLYarwk+ouAv+hcBKs9nhl25hvQw2Ym4PJDl7YYlbhBUicsPLjR+RhwHvDlZ1MsBLOQH7ULq31Q/YR1e4uqBH7/Tf47SM0v8P7z/jIHgPdqweiokWrlie9a+0icoEBKRI4h5KzgiJTQpNxoqCKXbSo/IBm23rToi4aaWq1yq5EOIEyk8ZHc4h0U57YJN6z2eHNXPSKCJYmWDL1TZvoUycZXyLoomdFlw5nJUCM2njQIDAQAB",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"userName\",\n    \"email\": \"user@email\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/user/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "procura usuário por ID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "public-key",
+						"value": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAltmTQ6CG+N/WKWLeH+ytrMUSTtom5ZvTRKq/Z3bUevH4kc8I40R45l3gE5TibKfceIuRr0XxZHYq42FzAC2I2w1FHoveHPmaVVtxThAyAqDUrLYarwk+ouAv+hcBKs9nhl25hvQw2Ym4PJDl7YYlbhBUicsPLjR+RhwHvDlZ1MsBLOQH7ULq31Q/YR1e4uqBH7/Tf47SM0v8P7z/jIHgPdqweiokWrlie9a+0icoEBKRI4h5KzgiJTQpNxoqCKXbSo/IBm23rToi4aaWq1yq5EOIEyk8ZHc4h0U57YJN6z2eHNXPSKCJYmWDL1TZvoUycZXyLoomdFlw5nJUCM2njQIDAQAB",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/user/5fe10d60600b4c64ae01771c",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"5fe10d60600b4c64ae01771c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleta usuario por ID",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "public-key",
+						"type": "text",
+						"value": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAltmTQ6CG+N/WKWLeH+ytrMUSTtom5ZvTRKq/Z3bUevH4kc8I40R45l3gE5TibKfceIuRr0XxZHYq42FzAC2I2w1FHoveHPmaVVtxThAyAqDUrLYarwk+ouAv+hcBKs9nhl25hvQw2Ym4PJDl7YYlbhBUicsPLjR+RhwHvDlZ1MsBLOQH7ULq31Q/YR1e4uqBH7/Tf47SM0v8P7z/jIHgPdqweiokWrlie9a+0icoEBKRI4h5KzgiJTQpNxoqCKXbSo/IBm23rToi4aaWq1yq5EOIEyk8ZHc4h0U57YJN6z2eHNXPSKCJYmWDL1TZvoUycZXyLoomdFlw5nJUCM2njQIDAQAB"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/user/5fe10d60600b4c64ae01771c",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"5fe10d60600b4c64ae01771c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "salva chave pública usuário",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "public-key",
+						"value": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAltmTQ6CG+N/WKWLeH+ytrMUSTtom5ZvTRKq/Z3bUevH4kc8I40R45l3gE5TibKfceIuRr0XxZHYq42FzAC2I2w1FHoveHPmaVVtxThAyAqDUrLYarwk+ouAv+hcBKs9nhl25hvQw2Ym4PJDl7YYlbhBUicsPLjR+RhwHvDlZ1MsBLOQH7ULq31Q/YR1e4uqBH7/Tf47SM0v8P7z/jIHgPdqweiokWrlie9a+0icoEBKRI4h5KzgiJTQpNxoqCKXbSo/IBm23rToi4aaWq1yq5EOIEyk8ZHc4h0U57YJN6z2eHNXPSKCJYmWDL1TZvoUycZXyLoomdFlw5nJUCM2njQIDAQAB",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": \"5fe10d60600b4c64ae01771c\",\n    \"publicKeyString\": \"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAltmTQ6CG+N/WKWLeH+ytrMUSTtom5ZvTRKq/Z3bUevH4kc8I40R45l3gE5TibKfceIuRr0XxZHYq42FzAC2I2w1FHoveHPmaVVtxThAyAqDUrLYarwk+ouAv+hcBKs9nhl25hvQw2Ym4PJDl7YYlbhBUicsPLjR+RhwHvDlZ1MsBLOQH7ULq31Q/YR1e4uqBH7/Tf47SM0v8P7z/jIHgPdqweiokWrlie9a+0icoEBKRI4h5KzgiJTQpNxoqCKXbSo/IBm23rToi4aaWq1yq5EOIEyk8ZHc4h0U57YJN6z2eHNXPSKCJYmWDL1TZvoUycZXyLoomdFlw5nJUCM2njQIDAQAB\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/user/key/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"key",
+						""
+					]
+				},
+				"description": "chave privada para testes de decriptação: MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCW2ZNDoIb439YpYt4f7K2sxRJO2iblm9NEqr9ndtR68fiRzwjjRHjmXeATlOJsp9x4i5GvRfFkdirjYXMALYjbDUUei94c+ZpVW3FOEDICoNSsthqvCT6i4C/6FwEqz2eGXbmG9DDZibg8kOXthiVuEFSJyw8uNH5GHAe8OVnUywEs5AftQurfVD9hHV7i6oEfv9N/jtIzS/w/vP+MgeA92rB6KiRauWJ71r7SJygQEpEjiHkrOCIlNCk3GioIpdtKj8gGbbetOiLhpparXKrkQ4gTKTxkdziHRTntgk3rPZ4c1c9IoIliZYMvVNm+hTJxlfIuiiZ0WXDmclQIzaeNAgMBAAECggEAObf+dP3TJx7eXu+JdkWlHlo5axplj61T5Q5ANmJtYq17Iq9JA0yLxfldZ6CsEk8YOLeOgrYMaxgbyOzch9DkcIxfShTSY9vNhaN7cxcXS5ImTf9PrnGnGcMWGGb891hskCkEd/KvTk03xVTb5UpSwA5XinG72T4UotbOzuJS0OxT3gl/w4Yq1Ebb8bI8IwlcwV+Yz5PcMze5OTzjTFKRp3snEHK95MEMKGgXYy3Uvq1MkutkehSDG6Eus60Ec+L3Qhr1nKEyieJidg5vDXK21SlDC+DmPEAnqhXL5atD+SFR8JIN9qDz+h7zYV09sslcMJwHc2oizVATVVja2OMvgQKBgQDk9yC7Z2bIR6zFCBHfTG5aNr2y9bqiveu6O9CxgSY+7t0PGzw4+i35Xfb3gpSUK9hy0C007CWppVjBt+t41oe/M2AyB7hpzenE7RsJgPnp30jwOF/WrmeaXFTjbtp0WZNe5KgwF/n2eNAtA0ErjBuHrH9kHC95tWmcPVBH8WmrOQKBgQCoqUYJdcA4X7Ec6OMsuAlnxTuFICOIH2BgOVsL1ksH05OYL9PCtbK56oAFRCq7np8x4j3UgSJs5o5npsFVGgfH/6RMNXC/0FFX8qhUUsEfbuf4TBtVUwJ4NVZI5uCYTyvJrK7Xaf7LJyJJYyh5uPn9z1XufaeWQDwQjWdNiJEa9QKBgCEsKMLeBUcpEz/snmJCuY46dhtyfJrNd1ShC+hbtMXTZ5WjtYLvxC9nzLspYQtimtZvkM0lFYPRn91ZHzV/p2UtNVeqRK6XlbHhRFSJKiwXHIMpN8FrvTjg/a+BxQasX6yU5kUphB6QfGC5Iv0DLI3okQBZEQvKG8X2ICZ8NHoJAoGAEyRTDJPOoxdJNKzBy7t/ZcWewbcqETLubz1TNf62OUcsAyO6dujERhF1QiPAbdbM3o580fdt/soT83ObkZsIswwyi2utRjfQY5jovdk+jeC6dxW8LGzlZNs41cFOUDr8D0GH/m7LOidQ3t9gIqB5zvKPICgmswjLSF2kEcqkHVkCgYAM7PtgWm8+alz5LkjF2laPislSebd2EsyiV6W+kMpzkDxPZN26klde2qzL2ZYJDWOgfKslHpQGZoSCa1HMk/YgBkjGtL2FTjc+IPwpP+oH8wc9qMdf3LtzlEv4eNSR9sYX2IDQmU0YtcWqQkED6yI85KQNRiDqahP7z+YpMEWh6w=="
+			},
+			"response": []
+		},
+		{
+			"name": "Atualiza dados de usuário",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "public-key",
+						"value": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAltmTQ6CG+N/WKWLeH+ytrMUSTtom5ZvTRKq/Z3bUevH4kc8I40R45l3gE5TibKfceIuRr0XxZHYq42FzAC2I2w1FHoveHPmaVVtxThAyAqDUrLYarwk+ouAv+hcBKs9nhl25hvQw2Ym4PJDl7YYlbhBUicsPLjR+RhwHvDlZ1MsBLOQH7ULq31Q/YR1e4uqBH7/Tf47SM0v8P7z/jIHgPdqweiokWrlie9a+0icoEBKRI4h5KzgiJTQpNxoqCKXbSo/IBm23rToi4aaWq1yq5EOIEyk8ZHc4h0U57YJN6z2eHNXPSKCJYmWDL1TZvoUycZXyLoomdFlw5nJUCM2njQIDAQAB",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"userNameChanged\",\n    \"email\": \"user@email\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/user/5fe10d60600b4c64ae01771c",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"5fe10d60600b4c64ae01771c"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
