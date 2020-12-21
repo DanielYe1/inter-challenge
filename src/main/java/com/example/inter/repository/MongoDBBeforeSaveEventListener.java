@@ -28,12 +28,13 @@ public class MongoDBBeforeSaveEventListener extends AbstractMongoEventListener<O
             super.onBeforeSave(event);
             return;
         }
-        Optional<UserKey> userKey = keyRepository.findById(((UserKey) eventObject.get("_id")).getPublicKeyString());
+        String objectId = eventObject.get("_id").toString();
+        Optional<UserKey> userKey = keyRepository.findFirstByUserId((eventObject.get("_id").toString()));
         if (!userKey.isPresent()) {
             super.onBeforeSave(event);
             return;
         }
-        List<String> keysToEncrypt = Arrays.asList("_name", "_email");
+        List<String> keysToEncrypt = Arrays.asList("name", "email");
 
         for (String key : eventObject.keySet()) {
             if (keysToEncrypt.contains(key)) {
