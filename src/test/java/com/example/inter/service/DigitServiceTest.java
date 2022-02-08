@@ -1,14 +1,15 @@
 package com.example.inter.service;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class DigitServiceTest {
 
     @InjectMocks
@@ -26,9 +27,9 @@ public class DigitServiceTest {
         assertThat(digit, equalTo(9));
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void DeveriaEstourarErroPorReceberStringInvalida() {
-        Integer digit = service.calculateSumDigit("as1234", 9999);
+        assertThrows(RuntimeException.class, () -> service.calculateSumDigit("as1234", 9999));
     }
 
 
