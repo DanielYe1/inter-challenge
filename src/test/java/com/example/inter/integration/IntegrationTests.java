@@ -7,6 +7,7 @@ import com.example.inter.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -26,12 +27,6 @@ public class IntegrationTests {
 
     @MockBean
     private UserService userService;
-
-    @MockBean
-    private PublicKeyRepository publicKeyRepository;
-
-    @MockBean
-    private SecurityService securityService;
 
     @Test
     public void returns_200_for_user_endpoint() throws Exception {
