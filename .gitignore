@@ -31,3 +31,11 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Gradle ###
+.gradle
+/build/
+gradle-app.setting
+gradlew.bat
+!gradle-wrapper.jar
+.gradletasknamecache
